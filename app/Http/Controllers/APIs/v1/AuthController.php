@@ -29,9 +29,9 @@ class AuthController extends Controller
             $user = Auth::user();
 
             // generate a new token
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            $access_token = $tokenResult->accessToken;
+            $token_result = $user->createToken('Personal Access Token');
+            $token = $token_result->token;
+            $access_token = $token_result->accessToken;
 
             if ($remember_me == 0)
                 $token->expires_at = Carbon::now()->addWeeks(1);
@@ -87,8 +87,8 @@ class AuthController extends Controller
         $user->assignRole($role);
 
         // generate a new token
-        $tokenResult = $user->createToken('Personal Access Token');
-        $access_token = $tokenResult->accessToken;
+        $token_result = $user->createToken('Personal Access Token');
+        $access_token = $token_result->accessToken;
 
         return response()->json([
             'status' => true,

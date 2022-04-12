@@ -30,6 +30,8 @@ Route::namespace('APIs')->group(function () {
             Route::post('/register', 'AuthController@register');
 
             Route::group(['middleware' => ['auth:api']], function () {
+                Route::post('/set-store-setting', 'StoreController@setStoreSetting');
+                Route::post('/set-or-update-store-setting', 'StoreController@setOrUpdateStoreSetting');
 
             });
         });

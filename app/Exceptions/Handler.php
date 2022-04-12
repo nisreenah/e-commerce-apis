@@ -65,5 +65,16 @@ class Handler extends ExceptionHandler
         ], 422);
     }
 
-
+    // Handle and customize laravel passport unauthenticated exception error
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'status' => false,
+                'status_code' => 401,
+                'message' => $exception->getMessage()
+            ], 401);
+        }
+    }
+    
 }

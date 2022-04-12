@@ -146,6 +146,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'is_VAT_included' => 'is VAT included',
+        'VAT_percentage' => 'VAT percentage',
+    ],
 
 ];

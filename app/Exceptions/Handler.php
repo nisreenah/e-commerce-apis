@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -29,7 +31,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
      * @return void
      *
      * @throws \Exception
@@ -42,8 +44,8 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Throwable $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
@@ -52,4 +54,16 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
+    public function convertValidationExceptionToResponse(ValidationException $e, $request): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'status' => false,
+            'status_code' => 422,
+            'message' => 'The given data was invalid.',
+            'errors' => $e->errors()
+        ], 422);
+    }
+
+
 }

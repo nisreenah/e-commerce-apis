@@ -11,6 +11,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea
+/.idea/e-commerce-apis.iml
+/.idea/php.xml
 bootstrap/*
 composer.lock
 vendor/

@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Cart extends Model
 {
     protected $fillable = [
-        'quantity',
         'consumer_id',
     ];
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+         return $this->belongsToMany(Product::class,'cart_product')
+             ->withPivot('quantity', 'product_id', 'cart_id');
     }
 
     public function consumer(): BelongsTo

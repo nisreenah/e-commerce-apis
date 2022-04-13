@@ -149,6 +149,10 @@ return [
     'attributes' => [
         'is_VAT_included' => 'is VAT included',
         'VAT_percentage' => 'VAT percentage',
+        'en_name' => 'English name',
+        'en_description' => 'English description',
+        'ar_name' => 'Arabic name',
+        'ar_description' => 'Arabic description',
     ],
 
 ];

@@ -30,8 +30,17 @@ Route::namespace('APIs')->group(function () {
             Route::post('/register', 'AuthController@register');
 
             Route::group(['middleware' => ['auth:api']], function () {
-                Route::post('/set-store-setting', 'StoreController@setStoreSetting');
-                Route::post('/set-or-update-store-setting', 'StoreController@setOrUpdateStoreSetting');
+
+                Route::group(['middleware' => ['role:merchant']], function () {
+                    Route::post('/set-store-setting', 'StoreController@setStoreSetting');
+                    Route::post('/set-or-update-store-setting', 'StoreController@setOrUpdateStoreSetting');
+                    Route::post('/add-product/{store}', 'ProductController@addProduct');
+                });
+
+                Route::group(['middleware' => ['role:consumer']], function () {
+                    Route::post('/add-product-to-cart/{product}', 'ProductController@addProductToCart');
+                    Route::get('/calculate-cart', 'CartController@calculateCart');
+                });
 
             });
         });

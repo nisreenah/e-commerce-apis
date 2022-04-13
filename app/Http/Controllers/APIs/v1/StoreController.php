@@ -15,14 +15,12 @@ class StoreController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'is_VAT_included' => 'required',
-            'shipping_cost' => 'nullable',
+            'shipping_cost' => 'required|regex:/^\d+(\.\d{1,2})?$/',
         ]);
 
         $user = Auth::user();
         $inputs = $request->all();
         $is_VAT_included = $request->get('is_VAT_included');
-        $shipping_cost =  $request->get('shipping_cost');
-        // $inputs['shipping_cost'] = $shipping_cost ?? 0;
 
         if ((int)$is_VAT_included) {
             $this->validate($request, [

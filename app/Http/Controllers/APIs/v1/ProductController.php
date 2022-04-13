@@ -340,11 +340,15 @@ class ProductController extends Controller
         // $attach_product = $user->cart->products()->sync($product_id, ['quantity' => $quantity], false);
 
         // $is_in_cart = $user->cart->products()->wherePivotIn('product_id', [$product_id]);
-        $is_in_cart = $user->cart->products->contains($product_id);
-        if ($is_in_cart) {
-            // Updating an existing row in your relationship's intermediate table:
-            $user->cart->products()->updateExistingPivot($product_id, ['quantity' => $quantity]);
-        } else {
+        if ($user->cart->products()->count() > 0) {
+            $is_in_cart = $user->cart->products->contains($product_id);
+            if ($is_in_cart) {
+                // Updating an existing row in your relationship's intermediate table:
+                $user->cart->products()->updateExistingPivot($product_id, ['quantity' => $quantity]);
+            } else {
+                $user->cart->products()->attach($product_id, ['quantity' => $quantity]);
+            }
+        }else {
             $user->cart->products()->attach($product_id, ['quantity' => $quantity]);
         }
 

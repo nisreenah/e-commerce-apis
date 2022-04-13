@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model implements TranslatableContract
 {
@@ -14,6 +15,11 @@ class Product extends Model implements TranslatableContract
     public $translatedAttributes = ['name', 'description'];
     protected $fillable = ['price', 'product_id', 'store_id'];
     protected $appends = ['VAT_percentage'];
+
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(Store::class, 'store_id');
+    }
 
     public function carts(): BelongsToMany
     {

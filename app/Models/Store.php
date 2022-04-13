@@ -13,6 +13,7 @@ class Store extends Model
         'merchant_id',
         'is_VAT_included',
         'VAT_percentage',
+        'shipping_cost',
     ];
 
     public function merchant(): BelongsTo

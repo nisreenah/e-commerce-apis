@@ -32,7 +32,7 @@ Route::namespace('APIs')->group(function () {
             Route::group(['middleware' => ['auth:api']], function () {
 
                 Route::group(['middleware' => ['role:merchant']], function () {
-                    Route::post('/set-store-setting', 'StoreController@setStoreSetting');
+                    // Route::post('/set-store-setting', 'StoreController@setStoreSetting');
                     Route::post('/set-or-update-store-setting', 'StoreController@setOrUpdateStoreSetting');
                     Route::post('/add-product/{store}', 'ProductController@addProduct');
                 });
